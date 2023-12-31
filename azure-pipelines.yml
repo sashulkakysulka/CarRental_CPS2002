@@ -24,7 +24,7 @@ steps:
 - task: Maven@3
   inputs:
       mavenPomFile: 'pom.xml'
-      options: '-Xmx3072m'
+      mavenOptions: '-Xmx3072m'
       goals: 'verify'
 
 - task: PublishCodeCoverageResults@1
