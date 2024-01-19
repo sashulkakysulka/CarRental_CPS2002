@@ -31,3 +31,11 @@ steps:
   inputs:
       codeCoverageTool: 'JaCoCo'
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/target/site/jacoco/jacoco.xml'
+
+  steps:
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
