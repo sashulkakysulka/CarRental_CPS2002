@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -25,6 +27,11 @@ public class CustomerEntity {
     private String driverLicenceNumber;
     @Getter
     private List<String> rentList = new ArrayList<>();
+    @Getter
+    @GeneratedValue
+    @Id
+    private Long id;
+
 
     public CustomerEntity() {
     }
@@ -34,7 +41,8 @@ public class CustomerEntity {
         this.driverLicenceNumber = driverLicenceNumber;
     }
     public CustomerEntity(String fullName,int age, String email,
-                          String documentNumber, String documentType, String driverLicenceNumber, List<String> rentList ) {
+                          String documentNumber, String documentType, String driverLicenceNumber, List<String> rentList,
+                          Long id) {
         this.fullName = fullName;
         this.age = age;
         this.email = email;
@@ -42,6 +50,10 @@ public class CustomerEntity {
         this.documentType = documentType;
         this.driverLicenceNumber = driverLicenceNumber;
         this.rentList = rentList;
+        this.id = id;
+    }
+    public void setId(Long id){
+        this.id = id;
     }
     public void setFullName(String fullName) {
         this.fullName = fullName;
