@@ -1,7 +1,8 @@
 package org.CarRental.CustomerService;
 
-import org.CarRental.CustomerEntity;
-import org.CarRental.ICustomerRepository;
+import org.CarRental.CustomerNotFoundException;
+import org.CarRental.Model.CustomerEntity;
+import org.CarRental.Repository.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,13 +38,16 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Optional<CustomerEntity> getCustomerById(Long id) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         return customerRepository.findById(id);
     }
 
     @Override
     public CustomerEntity updateCustomer(Long id, CustomerEntity customerDetails) {
         CustomerEntity customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found for this id :: " + id));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for this id :: " + id));
         customer.setFullName(customerDetails.getFullName());
         customer.setAge(customerDetails.getAge());
         customer.setEmail(customerDetails.getEmail());
@@ -54,39 +58,66 @@ public class CustomerService implements ICustomerService {
         return customerRepository.save(customer);
     }
     public void updateCustomerFullName(Long id, String fullName) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerFullName(id, fullName);
     }
 
     public void updateCustomerEmail(Long id, String email) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerEmail(id, email);
     }
 
     public void updateCustomerAge(Long id, int age) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerAge(id, age);
     }
 
     public void updateCustomerDocumentType(Long id, String documentType) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerDocumentType(id, documentType);
     }
 
     public void updateCustomerDocumentNumber(Long id, String documentNumber) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerDocumentNumber(id, documentNumber);
     }
 
     public void updateCustomerDriverLicenceNumber(Long id, String driverLicenceNumber) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerDriverLicenceNumber(id, driverLicenceNumber);
     }
 
     public void updateCustomerYearsOfDriving(Long id, Double yearsOfDriving) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerYearsOfDriving(id, yearsOfDriving);
     }
 
     public void updateCustomerIsAuthorized(Long id, Boolean isAuthorized) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.updateCustomerIsAuthorized(id, isAuthorized);
     }
 
     @Override
     public void deleteCustomer(Long id) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("No customer found with ID: " + id);
+        }
         customerRepository.deleteById(id);
     }
 }

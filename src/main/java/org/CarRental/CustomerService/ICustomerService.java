@@ -2,7 +2,7 @@ package org.CarRental.CustomerService;
 
 import java.util.List;
 import java.util.Optional;
-import org.CarRental.CustomerEntity;
+import org.CarRental.Model.CustomerEntity;
 
 public interface ICustomerService {
     CustomerEntity createCustomer(CustomerEntity customer);
