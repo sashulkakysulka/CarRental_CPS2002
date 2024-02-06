@@ -1,25 +1,37 @@
-import org.CarRental.Model.CustomerEntity;
-import org.CarRental.CustomerService.CustomerService;
-import org.CarRental.Repository.ICustomerRepository;
+package org.CarRental.CustomerServiceTest;
+
+import org.CarRental.CarRentalApplication;
+import org.CarRental.Model.Customer;
+import org.CarRental.CustomerService.ICustomerService;
+import org.CarRental.Repository.CustomerRepository;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
+@ContextConfiguration(classes = CarRentalApplication.class)
 public class SaveCustomerTest {
 
-    @Mock
-    private ICustomerRepository customerRepository;
+    @MockBean
+    CustomerRepository customerRepository;
 
-    @InjectMocks
-    private CustomerService customerService;
-    @Test
-    void testCustomerEntityFullConstructorUsingBuilder() {
-        CustomerEntity customer = new CustomerEntity.Builder()
+    @Autowired
+    ICustomerService customerService;
+
+    private Customer customer;
+
+    @BeforeEach
+    void setUp() {
+        customer = new Customer.Builder()
                 .withFullName("John Doe")
                 .withAge(25)
                 .withEmail("john@example.com")
@@ -30,7 +42,9 @@ public class SaveCustomerTest {
                 .withIsAuthorized(true)
                 .withId(98L)
                 .build();
-
+    }
+    @Test
+    void testCustomerEntityFullConstructorUsingBuilder() {
         Assertions.assertEquals("John Doe", customer.getFullName());
         Assertions.assertEquals(25, customer.getAge());
         Assertions.assertEquals("john@example.com", customer.getEmail());
@@ -43,13 +57,12 @@ public class SaveCustomerTest {
     }
     @Test
     void testCreateCustomer_AgeAndDrivingExperienceValid() {
-        CustomerEntity customer = new CustomerEntity();
         customer.setAge(20);
         customer.setYearsOfDriving(2.0);
 
-        when(customerRepository.save(any(CustomerEntity.class))).thenReturn(customer);
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        CustomerEntity savedCustomer = customerService.createCustomer(customer);
+        Customer savedCustomer = customerService.createCustomer(customer);
 
         Assertions.assertTrue(savedCustomer.getIsAuthorized());
         verify(customerRepository).save(customer);
@@ -57,13 +70,12 @@ public class SaveCustomerTest {
 
     @Test
     void testCreateCustomer_AgeValidDrivingExperienceInvalid() {
-        CustomerEntity customer = new CustomerEntity();
         customer.setAge(20);
         customer.setYearsOfDriving(0.5);
 
-        when(customerRepository.save(any(CustomerEntity.class))).thenReturn(customer);
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        CustomerEntity savedCustomer = customerService.createCustomer(customer);
+        Customer savedCustomer = customerService.createCustomer(customer);
 
         Assertions.assertFalse(savedCustomer.getIsAuthorized());
         verify(customerRepository).save(customer);
@@ -71,13 +83,12 @@ public class SaveCustomerTest {
 
     @Test
     void testCreateCustomer_AgeInvalidDrivingExperienceValid() {
-        CustomerEntity customer = new CustomerEntity();
         customer.setAge(17);
         customer.setYearsOfDriving(2.0);
 
-        when(customerRepository.save(any(CustomerEntity.class))).thenReturn(customer);
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        CustomerEntity savedCustomer = customerService.createCustomer(customer);
+        Customer savedCustomer = customerService.createCustomer(customer);
 
         Assertions.assertFalse(savedCustomer.getIsAuthorized());
         verify(customerRepository).save(customer);
@@ -85,13 +96,12 @@ public class SaveCustomerTest {
 
     @Test
     void testCreateCustomer_BothAgeAndDrivingExperienceInvalid() {
-        CustomerEntity customer = new CustomerEntity();
         customer.setAge(17);
         customer.setYearsOfDriving(0.5);
 
-        when(customerRepository.save(any(CustomerEntity.class))).thenReturn(customer);
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        CustomerEntity savedCustomer = customerService.createCustomer(customer);
+        Customer savedCustomer = customerService.createCustomer(customer);
 
         Assertions.assertFalse(savedCustomer.getIsAuthorized());
         verify(customerRepository).save(customer);

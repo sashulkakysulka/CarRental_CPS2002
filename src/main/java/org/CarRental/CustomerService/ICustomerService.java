@@ -2,13 +2,13 @@ package org.CarRental.CustomerService;
 
 import java.util.List;
 import java.util.Optional;
-import org.CarRental.Model.CustomerEntity;
+import org.CarRental.Model.Customer;
 
 public interface ICustomerService {
-    CustomerEntity createCustomer(CustomerEntity customer);
-    List<CustomerEntity> getAllCustomers();
-    Optional<CustomerEntity> getCustomerById(Long id);
-    CustomerEntity updateCustomer(Long id, CustomerEntity customerDetails);
+    Customer createCustomer(Customer customer);
+    List<Customer> getAllCustomers();
+    Optional<Customer> getCustomerById(Long id);
+    Customer updateCustomer(Long id, Customer customerDetails);
     public void updateCustomerFullName(Long id, String fullName);
     public void updateCustomerEmail(Long id, String email);
     public void updateCustomerAge(Long id, int age);

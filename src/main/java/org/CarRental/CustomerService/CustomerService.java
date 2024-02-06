@@ -1,8 +1,8 @@
 package org.CarRental.CustomerService;
 
 import org.CarRental.CustomerNotFoundException;
-import org.CarRental.Model.CustomerEntity;
-import org.CarRental.Repository.ICustomerRepository;
+import org.CarRental.Model.Customer;
+import org.CarRental.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,32 +12,30 @@ import java.util.Optional;
 @Service
 public class CustomerService implements ICustomerService {
 
-    private final ICustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerService(ICustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     @Override
-    public CustomerEntity createCustomer(CustomerEntity customer) {
+    public Customer createCustomer(Customer customer) {
+        boolean isAuthorized = customer.getAge() > 18 && customer.getYearsOfDriving() > 1;
+        customer.setIsAuthorized(isAuthorized);
 
-        if (customer.getAge() > 18 && customer.getYearsOfDriving() > 1) {
-            customer.setIsAuthorized(true);
-        } else {
-            customer.setIsAuthorized(false);
-        }
+        Customer savedCustomer = customerRepository.save(customer);
 
-        return customerRepository.save(customer);
+        return savedCustomer;
     }
 
     @Override
-    public List<CustomerEntity> getAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
-    public Optional<CustomerEntity> getCustomerById(Long id) {
+    public Optional<Customer> getCustomerById(Long id) {
         if (!customerRepository.existsById(id)) {
             throw new CustomerNotFoundException("No customer found with ID: " + id);
         }
@@ -45,8 +43,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public CustomerEntity updateCustomer(Long id, CustomerEntity customerDetails) {
-        CustomerEntity customer = customerRepository.findById(id)
+    public Customer updateCustomer(Long id, Customer customerDetails) {
+        Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found for this id :: " + id));
         customer.setFullName(customerDetails.getFullName());
         customer.setAge(customerDetails.getAge());

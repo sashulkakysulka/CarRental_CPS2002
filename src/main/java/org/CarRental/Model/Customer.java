@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Entity
-public class CustomerEntity {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -68,8 +68,8 @@ public class CustomerEntity {
         public Builder withYearsOfDriving(Double yearsOfDriving) { this.yearsOfDriving = yearsOfDriving; return this; }
         public Builder withIsAuthorized(Boolean isAuthorized) { this.isAuthorized = isAuthorized; return this; }
 
-        public CustomerEntity build() {
-            CustomerEntity customerEntity = new CustomerEntity();
+        public Customer build() {
+            Customer customerEntity = new Customer();
             customerEntity.setId(id);
             customerEntity.setFullName(fullName);
             customerEntity.setEmail(email);

@@ -1,46 +1,50 @@
 package org.CarRental.Controller;
 
 import org.CarRental.CustomerService.CustomerService;
-import org.CarRental.Model.CustomerEntity;
+import org.CarRental.CustomerService.ICustomerService;
+import org.CarRental.Model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.swagger2.mappers.ModelMapper;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/customers")
 public class CustomerController {
 
-    private final CustomerService customerService;
+    @Autowired
+    ICustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    ModelMapper modelMapper;
 
 
-    @PostMapping
-    public ResponseEntity<CustomerEntity> createCustomer(@RequestBody CustomerEntity customer) {
-        CustomerEntity savedCustomer = customerService.createCustomer(customer);
+    @PostMapping("/customers")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+        Customer savedCustomer = customerService.createCustomer(customer);
         return ResponseEntity.ok(savedCustomer);
     }
 
     @GetMapping
-    public List<CustomerEntity> getAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerEntity> getCustomerById(@PathVariable Long id) {
-        Optional<CustomerEntity> customer = customerService.getCustomerById(id);
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+        Optional<Customer> customer = customerService.getCustomerById(id);
         return customer.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerEntity> updateCustomer(@PathVariable Long id, @RequestBody CustomerEntity customerDetails) {
-        CustomerEntity updatedCustomer = customerService.updateCustomer(id, customerDetails);
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customerDetails) {
+        Customer updatedCustomer = customerService.updateCustomer(id, customerDetails);
         return ResponseEntity.ok(updatedCustomer);
     }
 

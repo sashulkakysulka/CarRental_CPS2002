@@ -1,28 +1,34 @@
+package org.CarRental.CustomerServiceTest;
+
+import org.CarRental.CarRentalApplication;
 import org.CarRental.CustomerNotFoundException;
-import org.CarRental.CustomerService.CustomerService;
-import org.CarRental.Repository.ICustomerRepository;
+import org.CarRental.CustomerService.ICustomerService;
+import org.CarRental.Repository.CustomerRepository;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ContextConfiguration(classes = CarRentalApplication.class)
 class DeleteCustomerTest {
 
-    @Mock
-    private ICustomerRepository customerRepository;
+    @MockBean
+    CustomerRepository customerRepository;
 
-    @InjectMocks
-    private CustomerService customerService;
+    @Autowired
+    ICustomerService customerService;
 
     @Test
     void deleteCustomer_ValidId() {
         Long customerId = 1L;
+        when(customerRepository.existsById(customerId)).thenReturn(true);
 
         doNothing().when(customerRepository).deleteById(customerId);
 
