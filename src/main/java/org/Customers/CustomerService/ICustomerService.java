@@ -1,8 +1,8 @@
-package org.CarRental.CustomerService;
+package org.Customers.CustomerService;
 
 import java.util.List;
 import java.util.Optional;
-import org.CarRental.Model.Customer;
+import org.Customers.Model.Customer;
 
 public interface ICustomerService {
     Customer createCustomer(Customer customer);
