@@ -16,7 +16,7 @@ public class Vehicle{
     private String model;
     private double pricePerDay;
     private double costsPerDay;
-    @Transient
+@Transient
     private List<DateRange> datesRented;
 
     public Vehicle(){} //Empty Constructor
@@ -90,7 +90,7 @@ public class Vehicle{
     public boolean isAvailable(LocalDate startDate, LocalDate endDate){
         boolean isAvailable = true;
 
-        for(int i = 0;i < datesRented.size() ; i++){      
+        for(int i = 0;i < datesRented.size() ; i++){
             LocalDate rentedStartDate = datesRented.get(i).getStartDate();
             LocalDate rentedEndDate = datesRented.get(i).getEndDate();
 
