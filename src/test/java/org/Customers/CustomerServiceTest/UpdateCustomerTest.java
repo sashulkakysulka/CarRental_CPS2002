@@ -35,7 +35,7 @@ class UpdateCustomerTest {
         existingCustomer.setId(1L);
         existingCustomer.setFullName("John Doe");
         existingCustomer.setEmail("john.doe@example.com");
-        existingCustomer.setAge(30);
+        existingCustomer.setAge(30.0);
         existingCustomer.setDocumentType("Passport");
         existingCustomer.setDocumentNumber("A1234567");
         existingCustomer.setDriverLicenceNumber("D1234567");

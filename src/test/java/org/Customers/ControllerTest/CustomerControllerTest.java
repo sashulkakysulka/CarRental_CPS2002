@@ -50,7 +50,7 @@ public class CustomerControllerTest {
         repository.deleteAll();
         Customer customer = new Customer.Builder()
                 .withFullName("John Doe")
-                .withAge(25)
+                .withAge(25.0)
                 .withEmail("john@example.com")
                 .withDocumentNumber("AB1234567")
                 .withDocumentType("Passport")
@@ -61,7 +61,7 @@ public class CustomerControllerTest {
                 .build();
         Customer customer1 = new Customer.Builder()
                 .withFullName("John Doe")
-                .withAge(25)
+                .withAge(25.0)
                 .withEmail("john@example.com")
                 .withDocumentNumber("AB1234567")
                 .withDocumentType("Passport")
@@ -72,7 +72,7 @@ public class CustomerControllerTest {
                 .build();
         Customer customer2 = new Customer.Builder()
                 .withFullName("John Doe")
-                .withAge(25)
+                .withAge(25.0)
                 .withEmail("john@example.com")
                 .withDocumentNumber("AB1234567")
                 .withDocumentType("Passport")
@@ -90,7 +90,7 @@ public class CustomerControllerTest {
     public void createCustomer_ReturnsCustomer_WhenSuccessful() throws JsonProcessingException, JSONException {
         Customer customer = new Customer.Builder()
                 .withFullName("John Doe")
-                .withAge(25)
+                .withAge(25.0)
                 .withEmail("john@example.com")
                 .withDocumentNumber("AB1234567")
                 .withDocumentType("Passport")

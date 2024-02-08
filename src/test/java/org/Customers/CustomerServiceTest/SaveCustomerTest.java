@@ -33,7 +33,7 @@ public class SaveCustomerTest {
     void setUp() {
         customer = new Customer.Builder()
                 .withFullName("John Doe")
-                .withAge(25)
+                .withAge(25.0)
                 .withEmail("john@example.com")
                 .withDocumentNumber("AB1234567")
                 .withDocumentType("Passport")
@@ -57,7 +57,7 @@ public class SaveCustomerTest {
     }
     @Test
     void testCreateCustomer_AgeAndDrivingExperienceValid() {
-        customer.setAge(20);
+        customer.setAge(20.0);
         customer.setYearsOfDriving(2.0);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
@@ -70,7 +70,7 @@ public class SaveCustomerTest {
 
     @Test
     void testCreateCustomer_AgeValidDrivingExperienceInvalid() {
-        customer.setAge(20);
+        customer.setAge(20.0);
         customer.setYearsOfDriving(0.5);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
@@ -83,7 +83,7 @@ public class SaveCustomerTest {
 
     @Test
     void testCreateCustomer_AgeInvalidDrivingExperienceValid() {
-        customer.setAge(17);
+        customer.setAge(17.0);
         customer.setYearsOfDriving(2.0);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
@@ -96,7 +96,7 @@ public class SaveCustomerTest {
 
     @Test
     void testCreateCustomer_BothAgeAndDrivingExperienceInvalid() {
-        customer.setAge(17);
+        customer.setAge(17.0);
         customer.setYearsOfDriving(0.5);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);

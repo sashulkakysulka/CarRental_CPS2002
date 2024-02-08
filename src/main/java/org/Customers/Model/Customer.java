@@ -21,7 +21,7 @@ public class Customer {
     @Email(message = "Email should be valid")
     private String email;
 
-    private int age;
+    private Double age;
 
     @NotNull
     private String documentType;
@@ -40,7 +40,7 @@ public class Customer {
     public void setId(Long id) { this.id = id; }
     public void setFullName(String fullName) { this.fullName = fullName; }
     public void setEmail(String email) { this.email = email; }
-    public void setAge(int age) { this.age = age; }
+    public void setAge(Double age) { this.age = age; }
     public void setDocumentType(String documentType) { this.documentType = documentType; }
     public void setDocumentNumber(String documentNumber) { this.documentNumber = documentNumber; }
     public void setDriverLicenceNumber(String driverLicenceNumber) { this.driverLicenceNumber = driverLicenceNumber; }
@@ -51,7 +51,7 @@ public class Customer {
         private Long id;
         private String fullName;
         private String email;
-        private int age;
+        private Double age;
         private String documentType;
         private String documentNumber;
         private String driverLicenceNumber;
@@ -61,7 +61,7 @@ public class Customer {
         public Builder withId(Long id) { this.id = id; return this; }
         public Builder withFullName(String fullName) { this.fullName = fullName; return this; }
         public Builder withEmail(String email) { this.email = email; return this; }
-        public Builder withAge(int age) { this.age = age; return this; }
+        public Builder withAge(Double age) { this.age = age; return this; }
         public Builder withDocumentType(String documentType) { this.documentType = documentType; return this; }
         public Builder withDocumentNumber(String documentNumber) { this.documentNumber = documentNumber; return this; }
         public Builder withDriverLicenceNumber(String driverLicenceNumber) { this.driverLicenceNumber = driverLicenceNumber; return this; }

@@ -34,7 +34,7 @@ public class GetCustomerTest {
     void setUp() {
         customer = new Customer.Builder()
                 .withFullName("John Doe")
-                .withAge(25)
+                .withAge(25.0)
                 .withEmail("john@example.com")
                 .withDocumentNumber("AB1234567")
                 .withDocumentType("Passport")
