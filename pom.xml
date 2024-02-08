@@ -7,6 +7,12 @@
     <groupId>org.example</groupId>
     <artifactId>CarRental_CPS2002</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>Customer</module>
+        <module>Vehicle</module>
+    </modules>
 
     <properties>
         <junit-jupiter.version>5.6.0</junit-jupiter.version>
