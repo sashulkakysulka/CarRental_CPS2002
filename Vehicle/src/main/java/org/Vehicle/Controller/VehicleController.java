@@ -22,12 +22,12 @@ public class VehicleController {
         this.vehicleservice = vehicleservice;
     }
 
-    @GetMapping("/{vehicleId}")
+    @GetMapping("/vehicles/{vehicleId}")
     public Vehicle getVehicleByID(long vehicleId){
         return vehicleservice.getVehicleByID(vehicleId);
     }
 
-    @GetMapping
+    @GetMapping("/vehicles/all")
     public List<Vehicle> getAllVehicles(){
         return vehicleservice.getAllVehicles();
     }
@@ -38,7 +38,7 @@ public class VehicleController {
         return ResponseEntity.ok(vehicle);
     }
 
-    @PutMapping("/{vehicleId}")
+    @PutMapping("/vehicles/{vehicleId}")
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable Long vehicleId, @RequestBody Vehicle vehicle) {
         Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
         if (existingVehicle != null) {
@@ -47,7 +47,7 @@ public class VehicleController {
         }
         return ResponseEntity.ok().build();
     }
-    @PutMapping("/{vehicleId}/price")
+    @PutMapping("/vehicles/{vehicleId}/price")
     public ResponseEntity<Vehicle> updateVehiclePrice(@PathVariable Long vehicleId, @RequestBody double price) {
         Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
         if (existingVehicle != null) {
@@ -57,7 +57,7 @@ public class VehicleController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{vehicleId}/price")
+    @PutMapping("/vehicles/{vehicleId}/price")
     public ResponseEntity<Vehicle> updateVehicleCosts(@PathVariable Long vehicleId, @RequestBody double costs) {
         Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
         if (existingVehicle != null) {
@@ -67,7 +67,7 @@ public class VehicleController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{vehicleId}")
+    @DeleteMapping("/vehicles/{vehicleId}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable Long vehicleId) {
 
         vehicleservice.deleteVehicle(vehicleId);
