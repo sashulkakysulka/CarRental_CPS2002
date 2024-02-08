@@ -3,10 +3,7 @@ package org.Vehicle.Model;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Vehicle{
@@ -19,6 +16,7 @@ public class Vehicle{
     private String model;
     private double pricePerDay;
     private double costsPerDay;
+    @Transient
     private List<DateRange> datesRented;
 
     public Vehicle(){} //Empty Constructor

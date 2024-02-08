@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class DateRange {
 
+    Long id;
     private LocalDate startDate;
     private LocalDate endDate;
 
