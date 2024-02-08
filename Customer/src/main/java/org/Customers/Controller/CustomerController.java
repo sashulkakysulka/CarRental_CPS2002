@@ -23,13 +23,12 @@ public class CustomerController {
 
 
     @PostMapping("/customers")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
         Customer savedCustomer = customerService.createCustomer(customer);
         return ResponseEntity.ok(savedCustomer);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Customer> getAllCustomers() {
         return customerService.getAllCustomers();
     }
