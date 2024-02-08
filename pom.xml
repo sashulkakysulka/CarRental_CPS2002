@@ -4,17 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>org.Customers</groupId>
     <artifactId>CarRental_CPS2002</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <junit-jupiter.version>5.6.0</junit-jupiter.version>
+        <junit-jupiter.version>5.10.0</junit-jupiter.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
     </properties>
 
     <parent>
@@ -28,7 +27,11 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>${springfox-swagger2.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.3</version>
+        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
@@ -41,9 +44,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.orm</groupId>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.4.2.Final</version>
+            <version>5.6.15.Final</version>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -143,8 +146,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
             </plugin>
-
-            <!-- optional, for mvn site -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>

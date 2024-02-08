@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.Customers.CarRentalApplication;
 import org.Customers.CustomerService.ICustomerService;
 import org.Customers.Model.Customer;
+import org.Customers.Repository.CustomerRepository;
 import org.json.JSONException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +39,52 @@ public class CustomerControllerTest {
     @MockBean
     private ICustomerService userMockService;
 
+    @Autowired
+    CustomerRepository repository;
+
     @LocalServerPort
     private int port;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+        Customer customer = new Customer.Builder()
+                .withFullName("John Doe")
+                .withAge(25)
+                .withEmail("john@example.com")
+                .withDocumentNumber("AB1234567")
+                .withDocumentType("Passport")
+                .withDriverLicenceNumber("DL12345")
+                .withYearsOfDriving(3.5)
+                .withIsAuthorized(true)
+                .withId(98L)
+                .build();
+        Customer customer1 = new Customer.Builder()
+                .withFullName("John Doe")
+                .withAge(25)
+                .withEmail("john@example.com")
+                .withDocumentNumber("AB1234567")
+                .withDocumentType("Passport")
+                .withDriverLicenceNumber("DL12345")
+                .withYearsOfDriving(3.5)
+                .withIsAuthorized(true)
+                .withId(1L)
+                .build();
+        Customer customer2 = new Customer.Builder()
+                .withFullName("John Doe")
+                .withAge(25)
+                .withEmail("john@example.com")
+                .withDocumentNumber("AB1234567")
+                .withDocumentType("Passport")
+                .withDriverLicenceNumber("DL12345")
+                .withYearsOfDriving(3.5)
+                .withIsAuthorized(true)
+                .withId(2L)
+                .build();
+        repository.save(customer);
+        repository.save(customer1);
+        repository.save(customer2);
+    }
 
     @Test
     public void createCustomer_ReturnsCustomer_WhenSuccessful() throws JsonProcessingException, JSONException {
@@ -63,14 +109,14 @@ public class CustomerControllerTest {
         ResponseEntity<String> responseEntity =
                 testRestTemplate.postForEntity(endpoint, customer, String.class);
 
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         JSONAssert.assertEquals(expectedResponseBody,responseEntity.getBody(), true);
 
     }
     @Test
     public void getAllCustomers_ReturnsListOfCustomers_WhenSuccessful() {
 
-        String baseUrl = "http://localhost:" + port + "/api/customers";
+        String baseUrl = "http://localhost:" + port + "/customers/all";
 
         ResponseEntity<Customer[]> responseEntity = testRestTemplate.getForEntity(baseUrl, Customer[].class);
 
@@ -82,7 +128,7 @@ public class CustomerControllerTest {
     @Test
     public void updateCustomerFullName_ReturnsOk_WhenUpdateIsSuccessful() {
         String updatedFullName = "{\"fullName\":\"Jane Doe Updated\"}";
-        Long customerId = 1L; // Ensure this ID exists in your database
+        Long customerId = 1L;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
@@ -97,10 +143,46 @@ public class CustomerControllerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+    @Test
+    public void updateCustomerEmail_ReturnsOk_WhenUpdateIsSuccessful() {
+        String updatedEmailJson = "{\"email\":\"updated@example.com\"}";
+        Long customerId = 1L;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(updatedEmailJson, headers);
+
+        ResponseEntity<String> response = testRestTemplate.exchange(
+                "http://localhost:" + port + "/customers/" + customerId + "/email",
+                HttpMethod.PATCH,
+                entity,
+                String.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+    @Test
+    public void updateCustomerEmail_ReturnsNotFound_WhenCustomerDoesNotExist() {
+        String updatedEmailJson = "{\"email\":\"updated@example.com\"}";
+        Long nonExistentCustomerId = 9999L;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(updatedEmailJson, headers);
+
+        ResponseEntity<String> response = testRestTemplate.exchange(
+                "http://localhost:" + port + "/customers/" + nonExistentCustomerId + "/email",
+                HttpMethod.PATCH,
+                entity,
+                String.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 
     @Test
     public void deleteCustomer_ReturnsOk_WhenDeletionIsSuccessful() {
-        Long customerId = 1L; // Ensure this ID exists database
+        Long customerId = 2L;
 
         ResponseEntity<String> response = testRestTemplate.exchange(
                 "http://localhost:" + port + "/customers/" + customerId,
@@ -110,6 +192,18 @@ public class CustomerControllerTest {
         );
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+    @Test
+    public void deleteCustomer_ReturnsNotFound_WhenCustomerDoesNotExist() {
+        Long nonExistentCustomerId = 9999L;
+
+        ResponseEntity<Void> response = testRestTemplate.exchange(
+                "http://localhost:" + port + "/customers/" + nonExistentCustomerId,
+                HttpMethod.DELETE,
+                null,
+                Void.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
 
