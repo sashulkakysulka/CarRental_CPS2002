@@ -1,8 +1,7 @@
-package org.CarRental.Controller;
+package org.Customers.Controller;
 
-import org.CarRental.CustomerService.CustomerService;
-import org.CarRental.CustomerService.ICustomerService;
-import org.CarRental.Model.Customer;
+import org.Customers.CustomerService.ICustomerService;
+import org.Customers.Model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

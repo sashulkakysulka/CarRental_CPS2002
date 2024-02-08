@@ -1,8 +1,8 @@
-package org.CarRental.CustomerService;
+package org.Customers.CustomerService;
 
-import org.CarRental.CustomerNotFoundException;
-import org.CarRental.Model.Customer;
-import org.CarRental.Repository.CustomerRepository;
+import org.Customers.CustomerNotFoundException;
+import org.Customers.Model.Customer;
+import org.Customers.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

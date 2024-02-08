@@ -1,9 +1,9 @@
-package org.CarRental.CustomerServiceTest;
+package org.Customers.CustomerServiceTest;
 
-import org.CarRental.CarRentalApplication;
-import org.CarRental.CustomerNotFoundException;
-import org.CarRental.CustomerService.ICustomerService;
-import org.CarRental.Repository.CustomerRepository;
+import org.Customers.CarRentalApplication;
+import org.Customers.CustomerNotFoundException;
+import org.Customers.CustomerService.ICustomerService;
+import org.Customers.Repository.CustomerRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

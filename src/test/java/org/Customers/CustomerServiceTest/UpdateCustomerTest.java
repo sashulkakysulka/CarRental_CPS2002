@@ -1,10 +1,10 @@
-package org.CarRental.CustomerServiceTest;
+package org.Customers.CustomerServiceTest;
 
-import org.CarRental.CarRentalApplication;
-import org.CarRental.CustomerNotFoundException;
-import org.CarRental.CustomerService.ICustomerService;
-import org.CarRental.Model.Customer;
-import org.CarRental.Repository.CustomerRepository;
+import org.Customers.CarRentalApplication;
+import org.Customers.CustomerNotFoundException;
+import org.Customers.CustomerService.ICustomerService;
+import org.Customers.Model.Customer;
+import org.Customers.Repository.CustomerRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

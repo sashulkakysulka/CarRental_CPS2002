@@ -1,7 +1,7 @@
-package org.CarRental.Repository;
+package org.Customers.Repository;
 
-import jakarta.transaction.Transactional;
-import org.CarRental.Model.Customer;
+import org.springframework.transaction.annotation.Transactional;
+import org.Customers.Model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

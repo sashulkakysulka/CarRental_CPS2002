@@ -1,9 +1,10 @@
-package org.CarRental;
+package org.Customers.ControllerTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.CarRental.CustomerService.ICustomerService;
-import org.CarRental.Model.Customer;
+import org.Customers.CarRentalApplication;
+import org.Customers.CustomerService.ICustomerService;
+import org.Customers.Model.Customer;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;

@@ -1,4 +1,4 @@
-package org.CarRental.Model;
+package org.Customers.Model;
 
 import lombok.Getter;
 
