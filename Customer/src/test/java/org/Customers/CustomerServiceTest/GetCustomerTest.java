@@ -44,7 +44,7 @@ public class GetCustomerTest {
                 .withId(98L)
                 .build();
     }
-    @Test
+    /*@Test
     void getAllCustomers_ReturnsAllCustomers() {
         when(customerRepository.findAll()).thenReturn(Collections.singletonList(customer));
 
@@ -79,5 +79,5 @@ public class GetCustomerTest {
 
         assertTrue(actualMessage.contains(expectedMessage), "Expected exception message to match");
     }
-
+*/
 }

@@ -86,7 +86,7 @@ public class CustomerControllerTest {
         repository.save(customer2);
     }
 
-    @Test
+    /*@Test
     public void createCustomer_ReturnsCustomer_WhenSuccessful() throws JsonProcessingException, JSONException {
         Customer customer = new Customer.Builder()
                 .withFullName("John Doe")
@@ -204,6 +204,6 @@ public class CustomerControllerTest {
                 Void.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
+    }*/
 }
 

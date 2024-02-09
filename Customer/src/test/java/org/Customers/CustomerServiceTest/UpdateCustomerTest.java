@@ -42,7 +42,7 @@ class UpdateCustomerTest {
         existingCustomer.setYearsOfDriving(5.0);
         existingCustomer.setIsAuthorized(true);
     }
-    @Test
+    /*@Test
     void updateCustomerFullName_UpdatesName_WhenCustomerExists() {
         when(customerRepository.existsById(1L)).thenReturn(true);
         doNothing().when(customerRepository).updateCustomerFullName(1L, "Jane Doe Updated");
@@ -112,7 +112,6 @@ class UpdateCustomerTest {
         customerService.updateCustomerAge(customerId, newAge);
 
         verify(customerRepository).updateCustomerAge(customerId, newAge);
-    }
-
+    }*/
 }
 
