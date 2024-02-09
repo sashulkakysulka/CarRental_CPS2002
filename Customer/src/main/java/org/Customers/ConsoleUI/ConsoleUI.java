@@ -26,8 +26,7 @@ public class ConsoleUI implements CommandLineRunner {
                 System.out.println("Choose an option:");
                 System.out.println("1. Manage vehicles");
                 System.out.println("2. Manage users");
-                System.out.println("3. Rent a vehicle");
-                System.out.println("4. Reports");
+                System.out.println("3. Reports");
                 System.out.println("0. Exit");
 
                 int choice = scanner.nextInt();
@@ -41,9 +40,6 @@ public class ConsoleUI implements CommandLineRunner {
                         customerManagementService.manageCustomers(scanner);
                         break;
                     case 3:
-
-                        break;
-                    case 4:
 
                         break;
                     case 0:
