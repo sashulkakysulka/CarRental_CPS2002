@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.List;
 
-import org.Vehicle.Controller.VehicleController;
 import org.Vehicle.Repository.VehicleRepository;
 import org.Vehicle.Model.Vehicle;
 import org.Vehicle.VehicleNotFound;
@@ -45,6 +44,16 @@ public class VehicleServiceImplementation implements VehicleService {
     @Override
     public void updateVehicleCosts(Vehicle vehicle, double costs){
         vehicle.setCostsPerDay(costs);
+        vehicleRepository.save(vehicle);
+    }
+    @Override
+    public void updateVehicleModel(Vehicle vehicle,String model){
+        vehicle.setModel(model);
+        vehicleRepository.save(vehicle);
+    }
+    @Override
+    public void updateVehicleType(Vehicle vehicle,String type){
+        vehicle.setModel(type);
         vehicleRepository.save(vehicle);
     }
     @Override

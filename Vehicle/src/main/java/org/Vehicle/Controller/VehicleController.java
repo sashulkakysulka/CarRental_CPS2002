@@ -31,14 +31,14 @@ public class VehicleController {
     public List<Vehicle> getAllVehicles(){
         return vehicleservice.getAllVehicles();
     }
-    @PostMapping
+    @PostMapping("vehicles/new")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Vehicle> addVehicle(@RequestBody Vehicle vehicle) {
         vehicleservice.saveVehicle(vehicle);
         return ResponseEntity.ok(vehicle);
     }
 
-    @PutMapping("/vehicles/{vehicleId}")
+    @PutMapping("/vehicles/update/{vehicleId}")
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable Long vehicleId, @RequestBody Vehicle vehicle) {
         Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
         if (existingVehicle != null) {
@@ -47,7 +47,7 @@ public class VehicleController {
         }
         return ResponseEntity.ok().build();
     }
-    @PutMapping("/vehicles/{vehicleId}/price")
+    @PatchMapping("/vehicles/{vehicleId}/price")
     public ResponseEntity<Vehicle> updateVehiclePrice(@PathVariable Long vehicleId, @RequestBody double price) {
         Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
         if (existingVehicle != null) {
@@ -57,7 +57,7 @@ public class VehicleController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/vehicles/{vehicleId}/price")
+    @PatchMapping("/vehicles/{vehicleId}/costs")
     public ResponseEntity<Vehicle> updateVehicleCosts(@PathVariable Long vehicleId, @RequestBody double costs) {
         Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
         if (existingVehicle != null) {
@@ -67,7 +67,25 @@ public class VehicleController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/vehicles/{vehicleId}")
+    @PatchMapping("/vehicles/{vehicleId}/model")
+    public ResponseEntity<Vehicle> updateVehicleModel(@PathVariable Long vehicleId, @RequestBody String model) {
+        Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
+        if (existingVehicle != null) {
+            existingVehicle.setVehicleId(vehicleId);
+            vehicleservice.updateVehicleModel(existingVehicle, model);
+        }
+        return ResponseEntity.ok().build();
+    }
+    @PatchMapping("/vehicles/{vehicleId}/type")
+    public ResponseEntity<Vehicle> updateVehicleType(@PathVariable Long vehicleId, @RequestBody String type) {
+        Vehicle existingVehicle = vehicleservice.getVehicleByID(vehicleId);
+        if (existingVehicle != null) {
+            existingVehicle.setVehicleId(vehicleId);
+            vehicleservice.updateVehicleType(existingVehicle, type);
+        }
+        return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("/vehicles/{vehicleId}/delete")
     public ResponseEntity<Void> deleteVehicle(@PathVariable Long vehicleId) {
 
         vehicleservice.deleteVehicle(vehicleId);

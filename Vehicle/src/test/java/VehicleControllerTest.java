@@ -40,8 +40,8 @@ class VehicleControllerTests {
         List<DateRange> listOfDates = new ArrayList<>();
         DateRange range = new DateRange(LocalDate.of(2024,1,1), LocalDate.of(2024,1,5));
         listOfDates.add(range);
-        Vehicle vehicle = new Vehicle("type", "model", 24.50,listOfDates, 12.50 );
-
+        Vehicle vehicle = new Vehicle("type", "model", 24.50, 12.50 );
+        vehicle.setDatesRented(listOfDates);
         ResponseEntity<Vehicle> expectedVehicle = new ResponseEntity<>(vehicle, HttpStatus.CREATED);
         String endpoint = "/vehicles";
 

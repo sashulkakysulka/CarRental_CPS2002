@@ -21,11 +21,10 @@ public class Vehicle{
 
     public Vehicle(){} //Empty Constructor
 
-    public Vehicle(String type, String model, double price, List<DateRange> dates, double costsPerDay){
+    public Vehicle(String type, String model, double price, double costsPerDay){
         this.type = type;
         this.model = model;
         this.pricePerDay = price;
-        this.datesRented = dates;
         this.costsPerDay = costsPerDay;
     }
 
@@ -61,8 +60,10 @@ public class Vehicle{
         this.pricePerDay = pricePerDay;
     }
 
+    public void setDatesRented(List<DateRange> datesRented) {
+        this.datesRented = datesRented;
+    }
     public List<DateRange> getDatesRented(){
-
         return datesRented;
     }
     public double getCostsPerDay(){
