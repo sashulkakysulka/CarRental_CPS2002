@@ -3,12 +3,10 @@ package org.Customers.ConsoleUI;
 import org.Customers.Model.Customer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.HttpEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Scanner;
@@ -32,7 +30,8 @@ public class ConsoleUI implements CommandLineRunner {
 
                 switch (choice) {
                     case 1:
-
+                        VehicleManagement vehiclemanager = new VehicleManagement();
+                        vehiclemanager.manageVehicles(scanner);
                         break;
                     case 2:
                         manageCustomers(scanner);
@@ -149,60 +148,60 @@ public class ConsoleUI implements CommandLineRunner {
 
     private void updateCustomers(Scanner scanner) {
         System.out.println("Updating an existing customer");
-                System.out.println("Enter the ID of the customer to update:");
-                Long id = scanner.nextLong();
-                scanner.nextLine();
+        System.out.println("Enter the ID of the customer to update:");
+        long id = scanner.nextLong();
+        scanner.nextLine();
 
-                System.out.println("Enter updated full name:");
-                String fullName = scanner.nextLine();
+        System.out.println("Enter updated full name:");
+        String fullName = scanner.nextLine();
 
-                System.out.println("Enter updated email:");
-                String email = scanner.nextLine();
+        System.out.println("Enter updated email:");
+        String email = scanner.nextLine();
 
-                System.out.println("Enter updated age:");
-                Double age = scanner.nextDouble();
-                scanner.nextLine();
+        System.out.println("Enter updated age:");
+        Double age = scanner.nextDouble();
+        scanner.nextLine();
 
-                System.out.println("Enter updated document type:");
-                String documentType = scanner.nextLine();
+        System.out.println("Enter updated document type:");
+        String documentType = scanner.nextLine();
 
-                System.out.println("Enter updated document number:");
-                String documentNumber = scanner.nextLine();
+        System.out.println("Enter updated document number:");
+        String documentNumber = scanner.nextLine();
 
-                System.out.println("Enter updated driver licence number:");
-                String driverLicenceNumber = scanner.nextLine();
+        System.out.println("Enter updated driver licence number:");
+        String driverLicenceNumber = scanner.nextLine();
 
-                System.out.println("Enter updated years of driving:");
-                Double yearsOfDriving = scanner.nextDouble();
-                scanner.nextLine();
+        System.out.println("Enter updated years of driving:");
+        Double yearsOfDriving = scanner.nextDouble();
+        scanner.nextLine();
 
-                System.out.println("Is the customer authorized? (true/false):");
-                Boolean isAuthorized = scanner.nextBoolean();
-                scanner.nextLine();
+        System.out.println("Is the customer authorized? (true/false):");
+        Boolean isAuthorized = scanner.nextBoolean();
+        scanner.nextLine();
 
-                Customer customerDetails = new Customer();
-                customerDetails.setFullName(fullName);
-                customerDetails.setEmail(email);
-                customerDetails.setAge(age);
-                customerDetails.setDocumentType(documentType);
-                customerDetails.setDocumentNumber(documentNumber);
-                customerDetails.setDriverLicenceNumber(driverLicenceNumber);
-                customerDetails.setYearsOfDriving(yearsOfDriving);
-                customerDetails.setIsAuthorized(isAuthorized);
+        Customer customerDetails = new Customer();
+        customerDetails.setFullName(fullName);
+        customerDetails.setEmail(email);
+        customerDetails.setAge(age);
+        customerDetails.setDocumentType(documentType);
+        customerDetails.setDocumentNumber(documentNumber);
+        customerDetails.setDriverLicenceNumber(driverLicenceNumber);
+        customerDetails.setYearsOfDriving(yearsOfDriving);
+        customerDetails.setIsAuthorized(isAuthorized);
 
-                HttpHeaders headers = new HttpHeaders();
-                headers.set("Content-Type", "application/json");
-                HttpEntity<Customer> entity = new HttpEntity<>(customerDetails, headers);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<Customer> entity = new HttpEntity<>(customerDetails, headers);
 
-                String url = "http://localhost:8080/customers/update" + id;
-                RestTemplate restTemplate = RestTemplateSingleton.getInstance();
-                try {
-                    ResponseEntity<Customer> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Customer.class);
-                    System.out.println("Customer updated successfully: " + response.getBody());
-                } catch (Exception e) {
-                    System.out.println("Failed to update customer. Error: " + e.getMessage());
-                }
-            }
+        String url = "http://localhost:8080/customers/update" + id;
+        RestTemplate restTemplate = RestTemplateSingleton.getInstance();
+        try {
+            ResponseEntity<Customer> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Customer.class);
+            System.out.println("Customer updated successfully: " + response.getBody());
+        } catch (Exception e) {
+            System.out.println("Failed to update customer. Error: " + e.getMessage());
+        }
+    }
 
     private void partialUpdateCustomers(Scanner scanner) {
         System.out.println("Performing partial update on a customer");
@@ -304,5 +303,3 @@ public class ConsoleUI implements CommandLineRunner {
 
     }
 }
-
-
