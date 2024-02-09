@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/customers")
 public class CustomerController {
 
     @Autowired
@@ -21,8 +22,7 @@ public class CustomerController {
     @Autowired
     ModelMapper modelMapper;
 
-
-    @PostMapping("/customers")
+    @PostMapping("/create")
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
         Customer savedCustomer = customerService.createCustomer(customer);
         return ResponseEntity.ok(savedCustomer);
@@ -94,7 +94,7 @@ public class CustomerController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return ResponseEntity.ok().build();

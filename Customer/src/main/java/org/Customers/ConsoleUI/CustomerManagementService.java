@@ -1,65 +1,18 @@
 package org.Customers.ConsoleUI;
-
 import org.Customers.Model.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 
 import java.util.Scanner;
 
-@Component
-public class ConsoleUI implements CommandLineRunner {
-    private final Scanner scanner = new Scanner(System.in);
-    @Autowired
-    private CustomerManagementService customerManagementService;
-    @Override
-    public void run(String... args) throws Exception {
-        try {
-            while (true) {
-                System.out.println("Car Rental Application");
-                System.out.println("Choose an option:");
-                System.out.println("1. Manage vehicles");
-                System.out.println("2. Manage users");
-                System.out.println("3. Rent a vehicle");
-                System.out.println("4. Reports");
-                System.out.println("0. Exit");
-
-                int choice = scanner.nextInt();
-
-                switch (choice) {
-                    case 1:
-                        VehicleManagement vehiclemanager = new VehicleManagement();
-                        vehiclemanager.manageVehicles(scanner);
-                        break;
-                    case 2:
-                        customerManagementService.manageCustomers(scanner);
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-                    case 0:
-                        System.out.println("Exiting...");
-                        return;
-                    default:
-                        System.out.println("Invalid option, please try again.");
-                        break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-        }
+@Service
+public class CustomerManagementService {
+    private final Scanner scanner;
+    public CustomerManagementService() {
+        this.scanner = new Scanner(System.in);
     }
-
-    private void manageCustomers( Scanner scanner) {
+    public void manageCustomers( Scanner scanner) {
         while (true) {
             System.out.println("\nCustomer Management Menu");
             System.out.println("1. Add Customer");
@@ -141,7 +94,7 @@ public class ConsoleUI implements CommandLineRunner {
         customer.setIsAuthorized(isAuthorized);
 
         RestTemplate restTemplate = RestTemplateSingleton.getInstance();
-        String url = "http://localhost:8080/customers";
+        String url = "http://localhost:8080/customers/create";
 
         HttpEntity<Customer> request = new HttpEntity<>(customer);
         Customer savedCustomer = restTemplate.postForObject(url, request, Customer.class);
@@ -154,7 +107,7 @@ public class ConsoleUI implements CommandLineRunner {
     private void updateCustomers(Scanner scanner) {
         System.out.println("Updating an existing customer");
         System.out.println("Enter the ID of the customer to update:");
-        long id = scanner.nextLong();
+        Long id = scanner.nextLong();
         scanner.nextLine();
 
         System.out.println("Enter updated full name:");
@@ -300,12 +253,75 @@ public class ConsoleUI implements CommandLineRunner {
 
     private void deleteCustomer(Scanner scanner) {
         System.out.println("Deleting a customer");
-
+        System.out.println("Enter the ID of the customer to delete:");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
+        RestTemplate restTemplate = RestTemplateSingleton.getInstance();
+        String url = "http://localhost:8080/customers/" + id + "/delete";
+        try {
+            restTemplate.exchange(url, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+            System.out.println("Customer deleted successfully.");
+        } catch (Exception e) {
+            System.out.println("Failed to delete the customer. Error: " + e.getMessage());
+        }
     }
 
     private void retrieveCustomers(Scanner scanner) {
         System.out.println("Retrieving customer details");
+        System.out.println("\nCustomer Retrieval Menu");
+        System.out.println("1. Retrieve All Customers");
+        System.out.println("2. Retrieve Customer by ID");
+        System.out.println("0. Return to Main Menu");
 
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                retrieveAllCustomers();
+                break;
+            case 2:
+                retrieveCustomerById(scanner);
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println("Invalid option, please try again.");
+                break;
+        }
     }
-
+    private void retrieveAllCustomers() {
+        String url = "http://localhost:8080/customers/all";
+        RestTemplate restTemplate = RestTemplateSingleton.getInstance();
+        try {
+            ResponseEntity<Customer[]> response = restTemplate.getForEntity(url, Customer[].class);
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                for (Customer customer : response.getBody()) {
+                    System.out.println(customer);
+                }
+            } else {
+                System.out.println("No customers found.");
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to retrieve customers. Error: " + e.getMessage());
+        }
+    }
+    private void retrieveCustomerById(Scanner scanner) {
+        System.out.println("Enter the ID of the customer:");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
+        RestTemplate restTemplate = RestTemplateSingleton.getInstance();
+        String url = "http://localhost:8080/customers/" + id + "/get";
+        try {
+            ResponseEntity<Customer> response = restTemplate.getForEntity(url, Customer.class);
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                System.out.println(response.getBody());
+            } else {
+                System.out.println("Customer not found.");
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to retrieve the customer. Error: " + e.getMessage());
+        }
+    }
 }
+
