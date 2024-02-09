@@ -2,12 +2,10 @@ package org.Customers.ConsoleUI;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.Vehicle.Model.Vehicle;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class VehicleManagement {
@@ -19,7 +17,8 @@ public class VehicleManagement {
             System.out.println("2. Update Vehicle");
             System.out.println("3. Partial Updates");
             System.out.println("4. Delete Vehicles");
-            System.out.println("5. Retrieve Vehicles");
+            System.out.println("5. Retrieve Vehicle");
+            System.out.println("6. Retrieve All Vehicles");
             System.out.println("0. Return to Main Menu");
             System.out.print("Enter your choice: ");
 
@@ -37,10 +36,13 @@ public class VehicleManagement {
                     partialVehicleUpdate(scanner);
                     break;
                 case 4:
-                    deleteVehicle();
+                    deleteVehicle(scanner);
                     break;
                 case 5:
-                    getAllVehicles();
+                    getVehicle(scanner);
+                    break;
+                case 6:
+                    getVehicles();
                     break;
                 case 0:
                     return;
@@ -247,15 +249,56 @@ public class VehicleManagement {
         }
     }
 
+    private void getVehicle(Scanner scanner) {
+        System.out.println("Input ID of vehicle: ");
+        long id = scanner.nextLong();
 
-    private void deleteVehicle() {
-            System.out.println("Deleting a vehicle");
-        //TODO
+        RestTemplate restTemplate = RestTemplateSingleton.getInstance();
+        String url = "http://localhost:8080/vehicles/" + id;
+        try {
+            ResponseEntity<Vehicle> response = restTemplate.getForEntity(url, Vehicle.class);
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                System.out.println("\nVEHICLE:\n================\n" + response.getBody());
+            } else {
+                System.out.println("Vehicle not found.");
+            }
         }
+            catch (Exception e) {
+                System.out.println("Failed to retrieve the vehicle. Error: " + e.getMessage());
+            }
+    }
+    private void deleteVehicle(Scanner scanner) {
+        System.out.println("Deleting a vehicle");
+        System.out.println("Enter the ID of the vehicle to delete:");
+        long id = scanner.nextLong();
 
-        private void getAllVehicles() {
-            System.out.println("Retrieving vehicle details");
-        //TODO
+        RestTemplate restTemplate = RestTemplateSingleton.getInstance();
+        String url = "http://localhost:8080/vehicles/" + id + "/delete";
+
+        try {
+            restTemplate.exchange(url, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+            System.out.println("Vehicle deleted successfully.");
+        } catch (Exception e) {
+            System.out.println("Failed to delete the vehicle. Error: " + e.getMessage());
         }
     }
+
+        private void getVehicles() {
+            String url = "http://localhost:8080/vehicles/all";
+            RestTemplate restTemplate = RestTemplateSingleton.getInstance();
+
+            try {
+                ResponseEntity<Vehicle[]> response = restTemplate.getForEntity(url, Vehicle[].class);
+                if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                    System.out.println("\nVEHICLE:\n================\n" + Arrays.toString(response.getBody()));
+                } else {
+                    System.out.println("Vehicle not found.");
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Failed to retrieve the vehicle. Error: " + e.getMessage());
+            }
+        }
+    }
+
 
