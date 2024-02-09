@@ -2,6 +2,7 @@ package org.Vehicle.Model;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -16,7 +17,11 @@ public class Vehicle{
     private String model;
     private double pricePerDay;
     private double costsPerDay;
-@Transient
+
+    @Transient
+    private List<VehicleDecorator> decorators = new ArrayList<>();
+
+    @Transient
     private List<DateRange> datesRented;
 
     public Vehicle(){} //Empty Constructor
