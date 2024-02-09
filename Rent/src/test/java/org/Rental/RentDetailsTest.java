@@ -10,9 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RentDetailsTest {
     @Test
     void testRentDetailsConstructor() {
-        RentDetails rentDetails = new RentDetails('1', LocalDate.now(), LocalDate.now().plusDays(3));
+        RentDetails rentDetails = new RentDetails(LocalDate.now(), LocalDate.now().plusDays(3));
 
-        assertEquals('1', rentDetails.getVehicle());
         assertNotNull(rentDetails.getStartDate());
         assertNotNull(rentDetails.getEndDate());
         assertNull(rentDetails.getId());

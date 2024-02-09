@@ -12,11 +12,11 @@ public class RentCalculationServiceTest {
     void testCalculateTotalRent() {
         RentCalculationService rentCalculationService = new RentCalculationService();
 
-        char vehicle = '1';
+        double price = 5;
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusDays(3);
 
-        double totalRent = rentCalculationService.calculateTotalRent(vehicle, startDate, endDate);
+        double totalRent = rentCalculationService.calculateTotalRent(price, startDate, endDate);
 
         assertEquals(15, totalRent);
     }

@@ -17,16 +17,16 @@ public class RentController {
     private RentCalculationService rentCalculationService;
 
     @PostMapping("/calculate")
-    public double calculateTotalRent(@RequestParam char vehicle, @RequestParam String startDate, @RequestParam String endDate) {
+    public double calculateTotalRent(@RequestParam double price, @RequestParam String startDate, @RequestParam String endDate) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-        return rentCalculationService.calculateTotalRent(vehicle, start, end);
+        return rentCalculationService.calculateTotalRent(price, start, end);
     }
 
     @PostMapping("/save")
-    public void saveRentDetails(@RequestParam char vehicle, @RequestParam String startDate, @RequestParam String endDate) {
+    public void saveRentDetails(@RequestParam String startDate, @RequestParam String endDate) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-        rentCalculationService.saveRentDetails(vehicle, start, end);
+        rentCalculationService.saveRentDetails(start, end);
     }
 }
