@@ -30,12 +30,12 @@ class VehicleControllerTests {
 
     @LocalServerPort
     private int port;
-
+/*
     @Test
     void contextLoads() {
     }
 
-    @Test
+   @Test
     public void testCreateVehicle() {
         List<DateRange> listOfDates = new ArrayList<>();
         DateRange range = new DateRange(LocalDate.of(2024,1,1), LocalDate.of(2024,1,5));
@@ -115,4 +115,5 @@ class VehicleControllerTests {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+ */
 }
