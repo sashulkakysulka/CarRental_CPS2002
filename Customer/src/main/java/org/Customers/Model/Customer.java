@@ -82,5 +82,20 @@ public class Customer {
             return customerEntity;
         }
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Customer Details:\n");
+        sb.append("ID: ").append(id).append("\n");
+        sb.append("Full Name: ").append(fullName).append("\n");
+        sb.append("Email: ").append(email).append("\n");
+        sb.append("Age: ").append(age != null ? age : "N/A").append("\n");
+        sb.append("Document Type: ").append(documentType).append("\n");
+        sb.append("Document Number: ").append(documentNumber).append("\n");
+        sb.append("Driver's License Number: ").append(driverLicenceNumber).append("\n");
+        sb.append("Years of Driving Experience: ").append(yearsOfDriving != null ? yearsOfDriving : "N/A").append("\n");
+        sb.append("Authorized to Rent a Car: ").append(isAuthorized != null && isAuthorized ? "Yes" : "No").append("\n");
+        return sb.toString();
+    }
 }
 
