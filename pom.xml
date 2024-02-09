@@ -12,6 +12,7 @@
     <modules>
         <module>Customer</module>
         <module>Vehicle</module>
+        <module>Rent</module>
     </modules>
 
     <properties>
